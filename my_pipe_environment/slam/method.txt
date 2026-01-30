@@ -1,5 +1,0 @@
-python3 gazebo_models/my_pipe_environment/segmentation/icp.py 
-python3 gazebo_models/my_pipe_environment/slam/icp_odom.py 
-python3 gazebo_models/my_pipe_environment/slam/test.py 
-python3 gazebo_models/my_pipe_environment/slam/rplidar/2d_odom.py 
-
