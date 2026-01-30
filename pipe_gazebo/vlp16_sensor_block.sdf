@@ -1,0 +1,33 @@
+<!-- Paste this under <gazebo reference="lidar_link"> ... </gazebo> -->
+<sensor name="vlp16_like" type="ray">
+  <update_rate>10</update_rate>
+  <ray>
+    <scan>
+      <horizontal>
+        <samples>1800</samples>
+        <resolution>1</resolution>
+        <min_angle>-3.14159265359</min_angle>
+        <max_angle> 3.14159265359</max_angle>
+      </horizontal>
+      <vertical>
+        <samples>16</samples>
+        <resolution>1</resolution>
+        <min_angle>-0.2617993878</min_angle>
+        <max_angle> 0.2617993878</max_angle>
+      </vertical>
+    </scan>
+    <range>
+      <min>0.1</min><max>100.0</max><resolution>0.01</resolution>
+    </range>
+    <noise><type>gaussian</type><mean>0.0</mean><stddev>0.02</stddev></noise>
+  </ray>
+
+  <plugin name="vlp16_ros" filename="libgazebo_ros_ray_sensor.so">
+    <ros>
+      <namespace>/inpipe_bot</namespace>
+      <remapping>~/out:=/inpipe_bot/lidar/points</remapping>
+    </ros>
+    <output_type>sensor_msgs/PointCloud2</output_type>
+    <frame_name>lidar_link</frame_name>
+  </plugin>
+</sensor>
