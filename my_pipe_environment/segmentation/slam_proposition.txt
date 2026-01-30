@@ -1,0 +1,45 @@
+ ┌────────────────────────────┐
+ │   RealSense L515 / LiDAR   │
+ │     (Depth or PointCloud)  │
+ └────────────┬───────────────┘
+              │  /inpipe_bot/l515/l515_depth/points
+              ▼
+ ┌────────────────────────────┐
+ │  FastPipeAxisEstimator     │
+ │  (centerline + curvature)  │
+ │  - voxel downsample        │
+ │  - global PCA axis         │
+ │  - tangent-change elbow    │
+ │  - radius, angle, axes     │
+ └────────────┬───────────────┘
+              │
+              ├────────────► `/pipe/straight1`
+              │
+              ├────────────► `/pipe/straight2`
+              │
+              └────────────► `/pipe/elbow`
+                    (geometry landmarks)
+              ▼
+ ┌────────────────────────────┐
+ │  Pose Estimation / ICP     │
+ │  - Align frame-to-frame    │
+ │  - Align to known segment  │
+ └────────────┬───────────────┘
+              │
+              ▼
+ ┌────────────────────────────┐
+ │  SLAM Back-End (Pose Graph)│
+ │  - Node = robot pose       │
+ │  - Edge = motion + elbow   │
+ │  - Constraints from        │
+ │    elbow ↔ straight axes   │
+ └────────────┬───────────────┘
+              │
+              ▼
+ ┌────────────────────────────┐
+ │  Map / Reconstruction      │
+ │  - Pipe centerlines        │
+ │  - Elbow angles + radii    │
+ │  - Geometry-aware map      │
+ └────────────────────────────┘
+

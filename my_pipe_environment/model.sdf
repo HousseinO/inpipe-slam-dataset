@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="my_pipe_environment">
+    <static>true</static>
+    <pose>0 0 0 1.5708 0 0</pose>
+    <link name="pipe_link">
+      <!-- Visual: use OBJ so Gazebo loads MTL + texture -->
+      <visual name="pipe_visual">
+      <cast_shadows>true</cast_shadows>
+        <geometry>
+          <mesh>
+            <uri>model://my_pipe_environment/meshes/corrosion_metallic_pipe.obj</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+
+        <!-- Tell Gazebo to keep the mesh's own materials (from .mtl) -->
+        <use_mesh_materials>true</use_mesh_materials>
+      </visual>
+
+      <!-- Collision: you can keep it as STL for lighter physics -->
+      <collision name="pipe_collision">
+      <cast_shadows>true</cast_shadows>
+        <geometry>
+          <mesh>
+            <uri>model://my_pipe_environment/meshes/corrosion_metallic_pipe.obj</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

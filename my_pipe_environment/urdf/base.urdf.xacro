@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="inpipe_base">
+  <xacro:include filename="$(find inpipe_description)/urdf/common/macros.xacro"/>
+
+  <!-- Base link: simple cylinder pod -->
+  <link name="base_link">
+    <xacro:cylinder_inertia mass="0.8" radius="0.07" length="0.05"/>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.07" length="0.05"/></geometry>
+      <material name="gray"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.07" length="0.05"/></geometry>
+    </collision>
+  </link>
+</robot>
+

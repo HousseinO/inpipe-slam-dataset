@@ -1,0 +1,14 @@
+oho@oho-ROG-Strix-G531GT-G531GT:~$ ros2 launch gazebo_models/my_pipe_environment/inpipe_sim.launch.py
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/segmentation/icp.py
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/slam/rplidar/2d_odom.py 
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/slam/sonar/sonar_distance.py 
+oho@oho-ROG-Strix-G531GT-G531GT:~$ ros2 run teleop_twist_keyboard teleop_twist_keyboard
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/slam/imu/cmd_vel_trajectory_node.py
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/slam/full_slam_4_sonar.py
+oho@oho-ROG-Strix-G531GT-G531GT:~$ python3 gazebo_models/my_pipe_environment/gazebo_world_tf_broadcaster.py 
+
+
+
+oho@oho-ROG-Strix-G531GT-G531GT:~/gazebo_models/my_pipe_environment/slam/evaluation$ python3 evaluation_node.py ground_truth base_link_truth gt_output.csv
+oho@oho-ROG-Strix-G531GT-G531GT:~/gazebo_models/my_pipe_environment/slam/evaluation$ python3 evaluation_node.py odom_slam base_link_slam slam_log.csv
+

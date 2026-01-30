@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf version="1.7">
+  <world name="pipeline_world">
+  <plugin name="gazebo_ros_init"   filename="libgazebo_ros_init.so"/>
+<plugin name="gazebo_ros_factory" filename="libgazebo_ros_factory.so"/>
+<plugin name="gazebo_ros_state"   filename="libgazebo_ros_state.so"/>
+
+<!--<plugin name="ros_init" filename="libgazebo_ros_init.so"/>-->
+<!--<plugin name="ros_factory" filename="libgazebo_ros_factory.so"/>-->
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <!-- Your pipeline environment (tube, bends, etc.) -->
+    <include>
+      <uri>model://my_pipe_environment</uri>
+      <name>my_pipe_environment</name>
+      <pose>0 0 0.5 1.5708 0 0</pose>
+    </include>
+    <!-- Spawn robot by including URDF via gazebo_ros factory -->
+    <plugin name="spawn_inpipe_bot" filename="libgazebo_ros_factory.so">
+      <ros>
+        <namespace>/inpipe_bot</namespace>
+      </ros>
+      <robot_namespace>/inpipe_bot</robot_namespace>
+      <xml_string>
+        <!-- paste the expanded URDF here OR point to a file via spawn_entity in launch -->
+      </xml_string>
+    </plugin>
+
+    <!-- (Optional) gravity, physics tweaks -->
+    <gravity>0 0 -9.81</gravity>
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+  </world>
+</sdf>
+

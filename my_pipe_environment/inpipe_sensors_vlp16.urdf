@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<robot name="inpipe_sensors" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ================= Base ================= -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.002" ixy="0" ixz="0" iyy="0.002" iyz="0" izz="0.002"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.07" length="0.05"/></geometry>
+      <material name="Gray"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.07" length="0.05"/></geometry>
+    </collision>
+  </link>
+
+  <!-- ================= LiDAR link ================= -->
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.3"/>
+      <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0005"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.03" length="0.02"/></geometry>
+      <material name="Blue"><color rgba="0.2 0.4 0.9 1"/></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry><cylinder radius="0.03" length="0.02"/></geometry>
+    </collision>
+  </link>
+
+  <!-- Fixed joint from base to lidar -->
+  <joint name="base_to_lidar" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0 0 0.08" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ================= Gazebo plugins / params ================= -->
+  <!-- Use sim time -->
+  <gazebo>
+    <plugin name="ros_init" filename="libgazebo_ros_init.so"/>
+    <plugin name="ros_factory" filename="libgazebo_ros_factory.so"/>
+  </gazebo>
+
+  <!-- VLP-16-like multi-ray sensor (publishes sensor_msgs/PointCloud2) -->
+  <gazebo reference="lidar_link">
+    <sensor name="vlp16_like" type="ray">
+      <update_rate>10</update_rate> <!-- 10 Hz ~ 600 RPM -->
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>1800</samples>     <!-- ~0.2° azimuth -->
+            <resolution>1</resolution>
+            <min_angle>-3.14159265359</min_angle>
+            <max_angle> 3.14159265359</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>16</samples>       <!-- 16 rings -->
+            <resolution>1</resolution>
+            <min_angle>-0.2617993878</min_angle>  <!-- -15° -->
+            <max_angle> 0.2617993878</max_angle>  <!-- +15° -->
+          </vertical>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>100.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.02</stddev>
+        </noise>
+      </ray>
+
+      <plugin name="vlp16_ros" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/inpipe_bot</namespace>
+          <remapping>~/out:=/inpipe_bot/lidar/points</remapping>
+        </ros>
+        <output_type>sensor_msgs/PointCloud2</output_type>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>
