@@ -71,5 +71,22 @@ After downloading a sequence:
 ```bash
 ros2 bag play <sequence_folder>
 
+## 📂 Repository Contents
+
+This GitHub repository contains:
+
+Gazebo simulation models
+
+Robot URDF description
+
+Launch files
+
+SLAM evaluation scripts
+
+Benchmark configuration files
+
+Large ROS 2 bag files are hosted externally on Zenodo.
+
+
 
 
