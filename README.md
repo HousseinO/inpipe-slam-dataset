@@ -1,17 +1,75 @@
 # In-Pipe SLAM Dataset
 
-This repository provides simulation assets, configuration files, and evaluation scripts for benchmarking SLAM methods in confined in-pipe environments.
+This repository provides simulation assets, configuration files, and evaluation tools for benchmarking SLAM methods in confined in-pipe environments.
 
-## Contents
-- Gazebo simulation models
-- Robot description (URDF)
-- Launch files
-- Evaluation scripts
+The full real-world and simulated ROS 2 bag datasets are publicly available on Zenodo.
 
-## Dataset
-Real-world and simulated ROS bag datasets are hosted on Zenodo:
-[DOI link will be added here]
+---
 
-## Associated Publication
-This dataset accompanies the paper:
-"In-Pipe SLAM Benchmarking Using Real-World and Simulated Datasets"
+## 📦 Dataset Download
+
+The dataset is hosted on Zenodo:
+
+**DOI:** https://doi.org/10.5281/zenodo.18615583
+
+Please download the ROS 2 bag sequences directly from Zenodo.
+
+**Format:**
+- ROS 2 bag (SQLite3 `.db3`)
+- Compatible with ROS 2 Humble (rosbag2)
+
+---
+
+## 🧭 Recorded Sensor Topics
+
+The real-world sequences include RGB-D, IMU, LiDAR, and robot proprioceptive data.
+
+### RGB Camera
+- `/camera/camera/color/image_raw`
+- `/camera/camera/color/camera_info`
+
+### Depth (Aligned to Color)
+- `/camera/camera/aligned_depth_to_color/image_raw`
+- `/camera/camera/aligned_depth_to_color/camera_info`
+
+### Raw Depth
+- `/camera/camera/depth/image_rect_raw`
+- `/camera/camera/depth/camera_info`
+
+### Point Cloud
+- `/camera/camera/depth/color/points`
+
+### Infrared
+- `/camera/camera/infra1/image_rect_raw`
+- `/camera/camera/infra2/image_rect_raw`
+
+### IMU
+- `/camera/camera/imu`
+- `/camera/camera/accel/sample`
+- `/camera/camera/gyro/sample`
+
+### LiDAR
+- `/scan`
+
+### Robot Data
+- `/encoders`
+- `/cmd_vel`
+
+### TF & Navigation
+- `/tf`
+- `/tf_static`
+- `/trajectory`
+- `/initialpose`
+- `/goal_pose`
+
+---
+
+## ▶️ Playing a Sequence
+
+After downloading a sequence:
+
+```bash
+ros2 bag play <sequence_folder>
+
+
+
