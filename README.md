@@ -70,7 +70,7 @@ After downloading a sequence:
 
 ```bash
 ros2 bag play <sequence_folder>
-
+```
 ## 📂 Repository Contents
 
 This GitHub repository contains:
