@@ -69,7 +69,7 @@ The real-world sequences include RGB-D, IMU, LiDAR, and robot proprioceptive dat
 After downloading a sequence:
 
 ```bash
-ros2 bag play <sequence_folder>
+ros2 bag play rouen8_localisation_withemm/rouen8_localisation_withemm_0.db3 
 ```
 ## 📂 Repository Contents
 
